@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="header">
+    <header class="site-header">
+        <a href="/products" class="brand" data-testid="brand-link">MiniMart</a>
+        <nav>
+            <a href="/products" data-testid="nav-products">Products</a>
+            <a href="/cart" data-testid="nav-cart">Cart</a>
+        </nav>
+    </header>
+</div>
+
+</body>
+</html>

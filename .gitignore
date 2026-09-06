@@ -1,0 +1,14 @@
+target/
+*.class
+.idea/
+*.iml
+.vscode/
+node_modules/
+test-results/
+playwright-report/
+cypress/videos/
+cypress/screenshots/
+*.log
+.env
+tests/performance/results/
+*.jtl

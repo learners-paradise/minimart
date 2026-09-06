@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Your Cart - MiniMart</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+
+<div th:replace="~{fragments :: header}"></div>
+
+<main>
+    <h1>Your Cart</h1>
+
+    <div th:if="${#lists.isEmpty(lines)}" data-testid="empty-cart">
+        Your cart is empty. <a href="/products">Browse products</a>
+    </div>
+
+    <div th:unless="${#lists.isEmpty(lines)}">
+        <table class="cart-table" data-testid="cart-table">
+            <thead>
+            <tr><th>Product</th><th>Price</th><th>Qty</th><th>Subtotal</th><th></th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="line : ${lines}" th:attr="data-testid='cart-row-' + ${line.product.id}">
+                <td th:text="${line.product.name}"></td>
+                <td th:text="'$' + ${line.product.price}"></td>
+                <td th:text="${line.quantity}"></td>
+                <td th:text="'$' + ${line.subtotal}"></td>
+                <td>
+                    <form method="post" action="/cart/remove">
+                        <input type="hidden" name="productId" th:value="${line.product.id}"/>
+                        <button type="submit" class="secondary" data-testid="remove-item-button">Remove</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p class="total-row" data-testid="cart-total">Total: $<span th:text="${total}"></span></p>
+
+        <a class="btn" href="/checkout" data-testid="checkout-link">Proceed to checkout</a>
+    </div>
+</main>
+
+</body>
+</html>

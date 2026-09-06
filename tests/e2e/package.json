@@ -1,0 +1,12 @@
+{
+  "name": "minimart-e2e",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Playwright golden-path E2E journeys for MiniMart (JavaScript)",
+  "scripts": {
+    "test": "playwright test"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0"
+  }
+}

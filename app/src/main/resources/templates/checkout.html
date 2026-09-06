@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Checkout - MiniMart</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+
+<div th:replace="~{fragments :: header}"></div>
+
+<main>
+    <h1>Checkout</h1>
+
+    <div class="error-banner" th:if="${error}" th:text="${error}" data-testid="checkout-error"></div>
+
+    <form class="checkout-form" method="post" action="/checkout" data-testid="checkout-form">
+        <label>
+            Full name
+            <input type="text" name="customerName" required data-testid="customer-name-input"/>
+        </label>
+        <label>
+            Email
+            <input type="email" name="customerEmail" required data-testid="customer-email-input"/>
+        </label>
+        <button type="submit" style="margin-top:20px" data-testid="place-order-button">Place order</button>
+    </form>
+</main>
+
+</body>
+</html>

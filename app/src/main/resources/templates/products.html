@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Products - MiniMart</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+
+<div th:replace="~{fragments :: header}"></div>
+
+<main>
+    <h1>Products</h1>
+
+    <form class="filters" method="get" action="/products" data-testid="filter-form">
+        <select name="category" onchange="this.form.submit()" data-testid="category-select">
+            <option value="">All categories</option>
+            <option th:each="c : ${categories}" th:value="${c}" th:text="${c}"
+                    th:selected="${c == selectedCategory}"></option>
+        </select>
+        <input type="text" name="search" placeholder="Search products..." th:value="${search}"
+               data-testid="search-input"/>
+        <button type="submit">Search</button>
+    </form>
+
+    <div class="product-grid" data-testid="product-grid">
+        <div class="product-card" th:each="product : ${products}" th:attr="data-testid='product-card-' + ${product.id}">
+            <span class="category" th:text="${product.category}"></span>
+            <h3 th:text="${product.name}"></h3>
+            <span class="price" th:text="'$' + ${product.price}"></span>
+            <a class="view-link" th:href="@{'/products/' + ${product.id}}" data-testid="view-product-link">View details</a>
+        </div>
+    </div>
+
+    <div th:if="${#lists.isEmpty(products)}" data-testid="no-results">No products found.</div>
+
+    <div class="pagination" th:if="${totalPages > 1}">
+        <a th:if="${currentPage > 0}"
+           th:href="@{/products(category=${selectedCategory}, search=${search}, page=${currentPage - 1})}"
+           data-testid="prev-page">Previous</a>
+        <span th:text="'Page ' + (${currentPage} + 1) + ' of ' + ${totalPages}"></span>
+        <a th:if="${currentPage + 1 < totalPages}"
+           th:href="@{/products(category=${selectedCategory}, search=${search}, page=${currentPage + 1})}"
+           data-testid="next-page">Next</a>
+    </div>
+</main>
+
+</body>
+</html>

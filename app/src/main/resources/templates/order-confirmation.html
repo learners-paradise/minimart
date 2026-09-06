@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Order Confirmed - MiniMart</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+
+<div th:replace="~{fragments :: header}"></div>
+
+<main>
+    <div class="confirmation-box" data-testid="order-confirmation">
+        <h1>Order confirmed!</h1>
+        <p>Thanks, <span th:text="${order.customer.name}"></span>. Your order
+            <strong data-testid="order-id" th:text="'#' + ${order.id}"></strong> has been placed.</p>
+        <p>Total: <strong data-testid="order-total" th:text="'$' + ${order.totalAmount}"></strong></p>
+
+        <table class="cart-table">
+            <thead><tr><th>Product</th><th>Qty</th><th>Subtotal</th></tr></thead>
+            <tbody>
+            <tr th:each="item : ${order.items}">
+                <td th:text="${item.productName}"></td>
+                <td th:text="${item.quantity}"></td>
+                <td th:text="'$' + ${item.subtotal}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <a class="btn" style="margin-top:20px" href="/products" data-testid="continue-shopping-link">Continue shopping</a>
+</main>
+
+</body>
+</html>
